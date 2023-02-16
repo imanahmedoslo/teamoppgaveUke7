@@ -11,3 +11,26 @@
     flex-direction: column;
     align-items: center;
 }
+.actionDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+}
+.coolnessDiv{
+    display: flex;
+    flex-direction: row;
+}
+.itemButtonDiv{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+.greetButtonDiv{
+    display: flex;
+    flex-direction: row;
+}
+.progressBar{
+    display: flex;
+    align-self: center;
+    margin-left: 5px;
+}

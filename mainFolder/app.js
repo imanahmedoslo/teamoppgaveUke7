@@ -30,22 +30,29 @@ function updateView() {
   document.getElementById("app").innerHTML =
     /*HTML*/
     `<div id="infoDiv">${instructions}</div>
-    <div id="animationsDiv">
+    <div id="animationsDiv" class="animationsDiv">
     <img src="car.png" id="car" class="car">
     <button id="start" onclick="start()">${startOrMoveOn}</button>
     </div>
     <div id="actionDiv" class="actionDiv"> 
 
     <p>${outcome}</p>
+    <div class='coolnessDiv'>
+     <p>Kulhet: ${coolness}</p> 
+    <progress class='progressBar' id="coolness" max="100" min="0" value=${coolness}></progress> 
+    </div>
 
-    <progress id="coolness" max="100" min="0" value=${coolness}></progress>
-    <p>Kulhet: ${coolness}</p>  
+    <div class='itemButtonDiv'>
+    <button id="grabItem" onclick="grabItem('yes')">Grab Item</button>
+    <button id="DontGrabItem" onclick="grabItem('no')">Do not grab Item</button>
+    </div>
 
-    <button id="grabItem" onclick="grabItem()">grab Item</button>
-
+    <div class='greetButtonDiv'>
     <button id="wave" onclick="greet('wave')"> wave to the friend</button>
     <button id="fistbump" onclick="greet('fistbump')"> fistbump</button>
     <button id="handshake" onclick="greet('handshake')"> handshake</button>
+    </div>
+
    </div>`;
 }
 
