@@ -1,3 +1,17 @@
+Ting å gjøre:
+
+Lage funksjoner:
+
+- greet
+
+- grabItem
+
+- gameOver
+
+
+
+
+
 
 
 Switch case sin syntax:

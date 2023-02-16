@@ -1,4 +1,3 @@
-
 // Model
 
 let time = setInterval(decreaseCoolnessWithTime, 1000);
@@ -24,13 +23,12 @@ let taskAccomplished = false;
 // let handShake= "handshake"
 let probabilityController = 0;
 
-
-
 // View
 
 updateView();
-function updateView(){
-    document.getElementById('app').innerHTML = /*HTML*/
+function updateView() {
+  document.getElementById("app").innerHTML =
+    /*HTML*/
     `<div id="infoDiv">${instructions}</div>
     <div id="animationsDiv">
     <img src="car.png" id="car" class="car">
@@ -45,87 +43,106 @@ function updateView(){
 
     <button id="grabItem" onclick="grabItem()">grab Item</button>
 
-    <button id="wave" onclick="greet(this)"> wave to the friend</button>
-    <button id="fist-pumb" onclick="greet(this)"> fist-bump</button>
-    <button id="handshake" onclick="greet(this)"> handshake</button>
-   </div>`
-  
+    <button id="wave" onclick="greet('wave')"> wave to the friend</button>
+    <button id="fistbump" onclick="greet('fistbump')"> fistbump</button>
+    <button id="handshake" onclick="greet('handshake')"> handshake</button>
+   </div>`;
 }
-
-
-
 
 // Controller
 
 // planen her er at changeEvent kjører hver gang vi har gjort
-//  et valg og henter inn en ny person med nye valg involvert 
+//  et valg og henter inn en ny person med nye valg involvert
 
-function changeEvent(events){
-    events=(Math.floor(Math.random()*6)+1);
-    if (events==1) {
-        instructions= `You met ${person1}. How are you going to greet them?`
-    }
-    else if (events==2) {
-        instructions= `You met ${person2}. How are you going to greet them?`
-    }
-    else if(events==3) {
-        instructions= `You met ${person3}. How are you going to greet them?`
-    }
-    else if (events==4) {
-        instructions=`You found ${item1}. Do you want to use it??`
-    }
-    else if (events==5) {
-        instructions=`You found ${item2}. Do you want to use it??`
-    }
-    else {
-        instructions=`You found ${item3}. Do you want to use it??`
-    }
-   updateView()
+function changeEvent(events) {
+  events = (Math.floor(Math.random()*6)+1)
+  if (events == 1) {
+    instructions = `You met ${person1}. How are you going to greet them?`;
+  } else if (events == 2) {
+    instructions = `You met ${person2}. How are you going to greet them?`;
+  } else if (events == 3) {
+    instructions = `You met ${person3}. How are you going to greet them?`;
+  } else if (events == 4) {
+    instructions = `You found ${item1}. Do you want to use it??`;
+  } else if (events == 5) {
+    instructions = `You found ${item2}. Do you want to use it??`;
+  } else {
+    instructions = `You found ${item3}. Do you want to use it??`;
+  }
+  updateView();
+}
+function start() {
+  if (gameStarted == false) {
+    changeEvent();
+    gameStarted = true;
+    startOrMoveOn = "click to go on";
+  } else if (gameStarted == true) {
+    if (taskAccomplished == false) {
+      alert("you have to complete the task");
+    } else changeEvent();
+  }
 
-
- }
- function start(){
-    if (gameStarted== false) {
-       changeEvent()
-       gameStarted=true
-       startOrMoveOn="click to go on"
-
-    } else if (gameStarted==true) {
-       if (taskAccomplished==false) {
-           alert("you have to complete the task")
-       } else changeEvent()
-    }
-    
-    updateView()
-    
+  updateView();
+  taskAccomplished=false
 }
 
-
 function decreaseCoolnessWithTime() {
-    coolness--;
-    if(coolness < 0){
-        coolness = 0;
-    }
-    updateView();
+  coolness--;
+  if (coolness < 0) {
+    coolness = 0;
+  }
+  updateView();
 }
 
 decreaseCoolnessWithTime();
 
+function greet(chosenGreeting) {
+  console.log("i am here");
+  
+  // Person 1:
+  if (instructions.includes(`${person1}`) && chosenGreeting == "handshake") {
+    outcome = `You chose  ${chosenGreeting}. They Loved it! you can go on`;
+    taskAccomplished = true;
+  } else if (
+    instructions.includes(`${person1}`) &&
+    (chosenGreeting !== "handshake")
+  ) {
+    outcome = `You chose ${chosenGreeting}. They hated it, try again`;
+    updateView();
+  }
 
+  // Person 2:
+  else if (
+    instructions.includes(`${person2}`) &&
+    chosenGreeting == "fistbump"
+  ) {
+    outcome = `You chose  ${chosenGreeting}. They Loved it! you can go on`;
+    taskAccomplished = true;
+  } else if (
+    instructions.includes(`${person2}`) &&
+    (chosenGreeting != "fistbump")
+  ) {
+    outcome = `You chose ${chosenGreeting}. They hated it, try again`;
+  } 
 
-// function greet(chosenGreeting){
-//     console.log("i am here")
-//     propabilityController= (Math.floor(Math.random()*2)+1)
-//     if ((!instructions.includes("Do you want to use it?"))&&propabilityController==1) {
-//         outcome= `You chose  ${chosenGreeting}. They hated it. Try again`
-//     } 
-//     else if((!instructions.includes("Do you want to use it?"))&&propabilityController==2){
-//         outcome=`You chose ${chosenGreeting}. They Loved it! you can go on`
-//         taskAccomplished=true;
+  // Person 3:
+  else if (
+    instructions.includes(`${person3}`) &&
+    chosenGreeting == 'wave'
+  ) {
+    outcome = `You chose  ${chosenGreeting}. They Loved it! you can go on`;
+    taskAccomplished = true;
+  } else if (
+    instructions.includes(`${person3}`) &&
+    (chosenGreeting != "wave")
+  ) {
+    outcome = `You chose ${chosenGreeting}. They hated it, try again`;
+  } 
 
-//     }
-//     else if (instructions.includes("Do you want to use it?")) {
-//         alert("You have to decide if you want the item or not")
-//     }
-//    updateView()
-// }
+  else if (instructions.includes("Do you want to use it?")) {
+    console.log("i am here")
+    alert("You have to decide if you want the item or not");
+  }
+
+  updateView();
+}
