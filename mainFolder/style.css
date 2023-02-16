@@ -3,3 +3,11 @@
     flex-direction: column;
     align-items: center;
 }
+.hidden{
+    opacity: 0;
+}
+.animationsDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
