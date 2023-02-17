@@ -1,13 +1,8 @@
 Ting å gjøre:
 
-Lage funksjoner:
+grabItem:
 
-- greet
-
-- grabItem
-
-- gameOver
-
+- Man kan grabbe item så mange ganger man vil, vi må fikse det
 
 
 

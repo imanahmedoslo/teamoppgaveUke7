@@ -1,3 +1,10 @@
+
+body {
+    background-color: chocolate;
+    
+}
+
+
 .app{
     display: flex;
     flex-direction: column;
@@ -15,6 +22,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;  
+    font-size: 20px;
 }
 .coolnessDiv{
     display: flex;
@@ -33,4 +41,41 @@
     display: flex;
     align-self: center;
     margin-left: 5px;
+}
+
+#start{
+    background-color: yellow;
+    border: solid 5px rgb(42, 82, 213);
+    color: black;
+    height: auto;
+    width: auto;
+    text-align: center;
+    border-radius: 75%;
+    padding:10px;
+}
+
+#grabItem, #DontGrabItem, #wave, #fistbump, #handshake{
+    background-color: yellow;
+    border: solid 5px rgb(42, 82, 213);
+    border-radius: 75%;
+    text-align: center;
+    margin-left: 5px;
+    padding: 10px;
+}
+.coolnessPTag{
+    color: white;
+    font-size: larger;
+}
+.car{
+    height: 350px;
+    
+}
+.progressBar{
+    height:40px;
+    border: solid yellow 3px;
+    margin-right: 100px;
+}
+
+#infoDiv {
+    font-size: 25px;
 }

@@ -1,7 +1,7 @@
 // Model
 
-let time = setInterval(decreaseCoolnessWithTime, 1000);
-let coolness = 100;
+let time;
+let coolness = 65;
 
 let person1 = "Bestemor";
 let person2 = "venn";
@@ -31,14 +31,14 @@ function updateView() {
     /*HTML*/
     `<div id="infoDiv">${instructions}</div>
     <div id="animationsDiv" class="animationsDiv">
-    <img src="car.png" id="car" class="car">
-    <button id="start" onclick="start()">${startOrMoveOn}</button>
+    <img src="bil-removebg-preview.png" id="car" class="car">
+    <button id="start" onclick="start();decreaseCoolnessWithTime()">${startOrMoveOn}</button>
     </div>
     <div id="actionDiv" class="actionDiv"> 
 
     <p>${outcome}</p>
     <div class='coolnessDiv'>
-     <p>Kulhet: ${coolness}</p> 
+     <p class='coolnessPTag'>Kulhet: ${coolness}</p> 
     <progress class='progressBar' id="coolness" max="100" min="0" value=${coolness}></progress> 
     </div>
 
@@ -62,7 +62,7 @@ function updateView() {
 //  et valg og henter inn en ny person med nye valg involvert
 
 function changeEvent(events) {
-  events = (Math.floor(Math.random()*6)+1)
+  events = Math.floor(Math.random() * 6) + 1;
   if (events == 1) {
     instructions = `You met ${person1}. How are you going to greet them?`;
   } else if (events == 2) {
@@ -78,41 +78,74 @@ function changeEvent(events) {
   }
   updateView();
 }
+
 function start() {
+  console.log( " start start " +taskAccomplished);
   if (gameStarted == false) {
+    time = setInterval(decreaseCoolnessWithTime, 1000);
     changeEvent();
     gameStarted = true;
     startOrMoveOn = "click to go on";
   } else if (gameStarted == true) {
     if (taskAccomplished == false) {
       alert("you have to complete the task");
-    } else changeEvent();
+    } else if (taskAccomplished == true) {
+      changeEvent();
+      taskAccomplished = false;
+    }
   }
 
   updateView();
-  taskAccomplished=false
+  console.log( "start slutt" + taskAccomplished);
 }
 
 function decreaseCoolnessWithTime() {
   coolness--;
   if (coolness < 0) {
     coolness = 0;
+  } else if (coolness > 100) {
+    coolness = 100;
   }
   updateView();
+
+
+  function gameOver() {
+    if (coolness == 0) {
+      clearInterval(time);
+      alert("Game over! You're not cool enough :("); 
+      gameStarted = false;
+      instructions = "";
+      outcome = "";
+      coolness = 65;
+      startOrMoveOn= "Start the game"
+    }
+    else if (coolness>=100) {
+     alert("Game over! You win! you are very cool ^.^ :("); 
+     clearInterval(time);
+     gameStarted = false;
+      instructions = "";
+      outcome = "";
+      coolness = 65;
+      startOrMoveOn= "Start the game"
+    }
+    
+    updateView();
+  }
+  gameOver();
 }
 
-decreaseCoolnessWithTime();
+
 
 function greet(chosenGreeting) {
-  console.log("i am here");
-  
+  console.log("greet start"+taskAccomplished);
+
   // Person 1:
   if (instructions.includes(`${person1}`) && chosenGreeting == "handshake") {
     outcome = `You chose  ${chosenGreeting}. They Loved it! you can go on`;
     taskAccomplished = true;
   } else if (
     instructions.includes(`${person1}`) &&
-    (chosenGreeting !== "handshake")
+    chosenGreeting !== "handshake"
   ) {
     outcome = `You chose ${chosenGreeting}. They hated it, try again`;
     updateView();
@@ -127,29 +160,50 @@ function greet(chosenGreeting) {
     taskAccomplished = true;
   } else if (
     instructions.includes(`${person2}`) &&
-    (chosenGreeting != "fistbump")
+    chosenGreeting != "fistbump"
   ) {
     outcome = `You chose ${chosenGreeting}. They hated it, try again`;
-  } 
+  }
 
   // Person 3:
-  else if (
-    instructions.includes(`${person3}`) &&
-    chosenGreeting == 'wave'
-  ) {
+  else if (instructions.includes(`${person3}`) && chosenGreeting == "wave") {
     outcome = `You chose  ${chosenGreeting}. They Loved it! you can go on`;
     taskAccomplished = true;
-  } else if (
-    instructions.includes(`${person3}`) &&
-    (chosenGreeting != "wave")
-  ) {
+  } else if (instructions.includes(`${person3}`) && chosenGreeting != "wave") {
     outcome = `You chose ${chosenGreeting}. They hated it, try again`;
-  } 
-
-  else if (instructions.includes("Do you want to use it?")) {
-    console.log("i am here")
+  } else if (instructions.includes("Do you want to use it?")) {
+    console.log("i am here");
     alert("You have to decide if you want the item or not");
   }
 
   updateView();
+  console.log("grab slutt "+taskAccomplished);
+}
+
+function grabItem(itemValg) {
+    console.log(taskAccomplished);
+  if (instructions.includes("Do you want to use it")) {
+    if (
+        taskAccomplished==true
+        
+      ) {
+        outcome="You got your reward, move on.";
+      } else{
+        switch (itemValg) {
+            case "yes":
+              coolness += 10;
+              outcome = `You decided to grab the item! Your coolness is increased! You can go on`;
+              break;
+            case "no":
+              outcome = `You discarded the item. You can go on`;
+              break;
+          }
+          taskAccomplished = true;
+      }
+    
+  }
+
+
+  updateView();
+  console.log("grab slutt "+ taskAccomplished);
 }
