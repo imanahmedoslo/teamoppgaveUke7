@@ -32,11 +32,16 @@ body {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
+    align-items: center;
+    justify-content: center;
 }
 .greetButtonDiv{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
+
 .progressBar{
     display: flex;
     align-self: center;

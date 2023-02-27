@@ -1,11 +1,14 @@
 // Model
-
+let startOrMoveOnButton= document.getElementById("start")
 let time;
 let coolness = 65;
 
 let person1 = "Bestemor";
 let person2 = "venn";
 let person3 = "Sinnatagg";
+
+let people = ['Bestemor', 'venn', 'Sinnatagg']
+let items = ['Shiny Paint','Cool Lights','Loud Stereo']
 
 let instructions = "";
 let events;
@@ -16,7 +19,6 @@ let item3 = "Loud Stereo";
 
 let outcome = "";
 let gameStarted = false;
-let startOrMoveOn = "Start the game";
 let taskAccomplished = false;
 // let wave="wave"
 // let fistPumb="fist-pumb"
@@ -24,16 +26,16 @@ let taskAccomplished = false;
 let probabilityController = 0;
 
 // View
-
+function updateTimer(){
+    document.getElementById("Timerapp").innerHTML =
+    /*HTML*/``
+}
 updateView();
 function updateView() {
   document.getElementById("app").innerHTML =
     /*HTML*/
     `<div id="infoDiv">${instructions}</div>
-    <div id="animationsDiv" class="animationsDiv">
-    <img src="bil-removebg-preview.png" id="car" class="car">
-    <button id="start" onclick="start();decreaseCoolnessWithTime()">${startOrMoveOn}</button>
-    </div>
+    
     <div id="actionDiv" class="actionDiv"> 
 
     <p>${outcome}</p>
@@ -42,16 +44,6 @@ function updateView() {
     <progress class='progressBar' id="coolness" max="100" min="0" value=${coolness}></progress> 
     </div>
 
-    <div class='itemButtonDiv'>
-    <button id="grabItem" onclick="grabItem('yes')">Grab Item</button>
-    <button id="DontGrabItem" onclick="grabItem('no')">Do not grab Item</button>
-    </div>
-
-    <div class='greetButtonDiv'>
-    <button id="wave" onclick="greet('wave')"> wave to the friend</button>
-    <button id="fistbump" onclick="greet('fistbump')"> fistbump</button>
-    <button id="handshake" onclick="greet('handshake')"> handshake</button>
-    </div>
 
    </div>`;
 }
@@ -61,31 +53,33 @@ function updateView() {
 // planen her er at changeEvent kjører hver gang vi har gjort
 //  et valg og henter inn en ny person med nye valg involvert
 
-function changeEvent(events) {
+function changeEvent() {
   events = Math.floor(Math.random() * 6) + 1;
-  if (events == 1) {
-    instructions = `You met ${person1}. How are you going to greet them?`;
-  } else if (events == 2) {
-    instructions = `You met ${person2}. How are you going to greet them?`;
-  } else if (events == 3) {
-    instructions = `You met ${person3}. How are you going to greet them?`;
-  } else if (events == 4) {
-    instructions = `You found ${item1}. Do you want to use it??`;
-  } else if (events == 5) {
-    instructions = `You found ${item2}. Do you want to use it??`;
-  } else {
-    instructions = `You found ${item3}. Do you want to use it??`;
-  }
+  console.log(events)
+  instructions = events <= 3 ? ('you met ' + people[events - 1] + ' How are you going to greet them?') : ('You found ' + items[events  - 4] + ' Do you want to use it??')
+  // if (events == 1) {
+  //   instructions = `You met ${person1}. How are you going to greet them?`;
+  // } else if (events == 2) {
+  //   instructions = `You met ${person2}. How are you going to greet them?`;
+  // } else if (events == 3) {
+  //   instructions = `You met ${person3}. How are you going to greet them?`;
+  // } else if (events == 4) {
+  //   instructions = `You found ${item1}. Do you want to use it??`;
+  // } else if (events == 5) {
+  //   instructions = `You found ${item2}. Do you want to use it??`;
+  // } else {
+  //   instructions = `You found ${item3}. Do you want to use it??`;
+  // }
   updateView();
 }
 
 function start() {
-  console.log( " start start " +taskAccomplished);
+  // console.log( " start start " +taskAccomplished);
   if (gameStarted == false) {
     time = setInterval(decreaseCoolnessWithTime, 1000);
     changeEvent();
     gameStarted = true;
-    startOrMoveOn = "click to go on";
+    startOrMoveOnButton.innerHTML = "click to go on";
   } else if (gameStarted == true) {
     if (taskAccomplished == false) {
       alert("you have to complete the task");
@@ -96,7 +90,7 @@ function start() {
   }
 
   updateView();
-  console.log( "start slutt" + taskAccomplished);
+  // console.log( "start slutt" + taskAccomplished);
 }
 
 function decreaseCoolnessWithTime() {
@@ -117,7 +111,8 @@ function decreaseCoolnessWithTime() {
       instructions = "";
       outcome = "";
       coolness = 65;
-      startOrMoveOn= "Start the game"
+      taskAccomplished=false
+      startOrMoveOnButton.innerHTML= "Start the game"
     }
     else if (coolness>=100) {
      alert("Game over! You win! you are very cool ^.^ :("); 
@@ -126,7 +121,8 @@ function decreaseCoolnessWithTime() {
       instructions = "";
       outcome = "";
       coolness = 65;
-      startOrMoveOn= "Start the game"
+      taskAccomplished=false
+      startOrMoveOnButton.innerHTML= "Start the game"
     }
     
     updateView();
@@ -134,33 +130,34 @@ function decreaseCoolnessWithTime() {
   gameOver();
 }
 
+let rightCondition = [
+  { person: 'bestemor', Answer: 'handshake', feedback: 'They Loved it! you can go on', badfeedback:'jett bro'},
+  { person: 'bestemor', Answer: 'handshake', feedback: 'They Loved it! you can go on'},
+  { person: 'bestemor', Answer: 'handshake', feedback: 'They Loved it! you can go on'},
+]
+
+
 
 
 function greet(chosenGreeting) {
-  console.log("greet start"+taskAccomplished);
+  // console.log("greet start"+taskAccomplished);
+//   let selectConditon = {person: person1, Answer: chosenGreeting}
+
 
   // Person 1:
   if (instructions.includes(`${person1}`) && chosenGreeting == "handshake") {
     outcome = `You chose  ${chosenGreeting}. They Loved it! you can go on`;
     taskAccomplished = true;
-  } else if (
-    instructions.includes(`${person1}`) &&
-    chosenGreeting !== "handshake"
-  ) {
+  } else if ( instructions.includes(`${person1}`) && chosenGreeting !== "handshake") {
     outcome = `You chose ${chosenGreeting}. They hated it, try again`;
     updateView();
   }
 
   // Person 2:
-  else if (
-    instructions.includes(`${person2}`) &&
-    chosenGreeting == "fistbump"
-  ) {
+  else if (instructions.includes(`${person2}`) && chosenGreeting == "fistbump") {
     outcome = `You chose  ${chosenGreeting}. They Loved it! you can go on`;
     taskAccomplished = true;
-  } else if (
-    instructions.includes(`${person2}`) &&
-    chosenGreeting != "fistbump"
+  } else if (instructions.includes(`${person2}`) && chosenGreeting != "fistbump"
   ) {
     outcome = `You chose ${chosenGreeting}. They hated it, try again`;
   }
@@ -172,16 +169,16 @@ function greet(chosenGreeting) {
   } else if (instructions.includes(`${person3}`) && chosenGreeting != "wave") {
     outcome = `You chose ${chosenGreeting}. They hated it, try again`;
   } else if (instructions.includes("Do you want to use it?")) {
-    console.log("i am here");
+    // console.log("i am here");
     alert("You have to decide if you want the item or not");
   }
 
   updateView();
-  console.log("grab slutt "+taskAccomplished);
+  // console.log("grab slutt "+taskAccomplished);
 }
 
 function grabItem(itemValg) {
-    console.log(taskAccomplished);
+    // console.log(taskAccomplished);
   if (instructions.includes("Do you want to use it")) {
     if (
         taskAccomplished==true
@@ -205,5 +202,5 @@ function grabItem(itemValg) {
 
 
   updateView();
-  console.log("grab slutt "+ taskAccomplished);
+  // console.log("grab slutt "+ taskAccomplished);
 }

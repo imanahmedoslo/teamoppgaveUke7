@@ -10,8 +10,22 @@
 </head>
 <body>
     <div id="app" class="app"></div>
+    <div id="animationsDiv" class="animationsDiv">
+        <img src="bil-removebg-preview.png" id="car" class="car">
+        <button id="start" onclick="start();decreaseCoolnessWithTime()">click to start</button>
+        </div>
 
-    <div class="testApp"></div>
+        <div class='itemButtonDiv'>
+            <button id="grabItem" onclick="grabItem('yes')">Grab Item</button>
+            <button id="DontGrabItem" onclick="grabItem('no')">Do not grab Item</button>
+            </div>
+        
+            <div class='greetButtonDiv'>
+            <button id="wave" onclick="greet('wave')"> wave to the friend</button>
+            <button id="fistbump" onclick="greet('fistbump')"> fistbump</button>
+            <button id="handshake" onclick="greet('handshake')"> handshake</button>
+            </div>
+
     
     <script defer src="app.js"></script>
 </body>
